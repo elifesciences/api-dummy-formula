@@ -34,7 +34,7 @@ api-dummy-nginx-vhost:
         - source: salt://api-dummy/config/etc-nginx-sites-enabled-api-dummy.conf
         - require:
             - nginx-config
-			- composer-install
+            - composer-install
         - listen_in:
             - service: nginx-server-service
             - service: php-fpm
