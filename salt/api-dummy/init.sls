@@ -1,7 +1,7 @@
 api-dummy-repository:
     builder.git_latest:
         - name: git@github.com:elifesciences/api-dummy.git
-        - identity: {{ pillar.elife.deploy_user.key or '' }}
+        - identity: {{ pillar.elife.projects_builder.key or '' }}
         - rev: {{ salt['elife.rev']() }}
         - branch: {{ salt['elife.branch']() }}
         - target: /srv/api-dummy/
