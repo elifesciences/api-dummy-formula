@@ -54,7 +54,13 @@ api-dummy-cache-directory:
 
 composer-install:
     cmd.run:
-        - name: composer --no-interaction install
+        {% if pillar.elife.env in ['prod', 'demo'] %}
+        - name: composer1.0 --no-interaction install --classmap-authoritative --no-dev
+        {% elif pillar.elife.env in ['ci'] %}
+        - name: composer1.0 --no-interaction install --classmap-authoritative
+        {% else %}
+        - name: composer1.0 --no-interaction install
+        {% endif %}
         - cwd: /srv/api-dummy/
         - user: {{ pillar.elife.deploy_user.username }}
         - require:
