@@ -1,4 +1,4 @@
-php-composer-1.0:
+api-dummy-php-composer-1.0:
    cmd.run:
         - name: |
             cp composer composer1.0
@@ -9,7 +9,7 @@ php-composer-1.0:
         - unless:
             - which composer1.0
 
-php-puli-latest:
+api-dummy-php-puli-latest:
    cmd.run:
         - name: |
             curl https://puli.io/installer | php
@@ -52,7 +52,7 @@ api-dummy-cache-directory:
         - require:
             - api-dummy-repository
 
-composer-install:
+api-dummy-composer-install:
     cmd.run:
         {% if pillar.elife.env in ['prod', 'demo'] %}
         - name: composer1.0 --no-interaction install --classmap-authoritative --no-dev
@@ -65,16 +65,5 @@ composer-install:
         - user: {{ pillar.elife.deploy_user.username }}
         - require:
             - api-dummy-repository
-            - cmd: php-composer-1.0
-            - cmd: php-puli-latest
-
-api-dummy-nginx-vhost:
-    file.managed:
-        - name: /etc/nginx/sites-enabled/api-dummy.conf
-        - source: salt://api-dummy/config/etc-nginx-sites-enabled-api-dummy.conf
-        - require:
-            - nginx-config
-            - composer-install
-        - listen_in:
-            - service: nginx-server-service
-            - service: php-fpm
+            - cmd: api-dummy-php-composer-1.0
+            - cmd: api-dummy-php-puli-latest
