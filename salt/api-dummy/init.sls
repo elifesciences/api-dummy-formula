@@ -22,7 +22,7 @@ api-dummy-repository:
     builder.git_latest:
         - name: git@github.com:elifesciences/api-dummy.git
         - identity: {{ pillar.elife.projects_builder.key or '' }}
-        - rev: {{ 'master' if pillar.api_dummy.standalone else salt['elife.rev']() }}
+        - rev: {{ salt['elife.rev']() if pillar.api_dummy.standalone else 'master' }}
         - branch: {{ salt['elife.branch']() }}
         - target: /srv/api-dummy/
         - force_fetch: True
