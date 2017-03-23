@@ -9,15 +9,6 @@ api-dummy-php-composer-1.0:
         - unless:
             - which composer1.0
 
-api-dummy-php-puli-latest:
-   cmd.run:
-        - name: |
-            curl https://puli.io/installer | php
-            mv puli.phar puli
-        - cwd: /usr/local/bin/
-        - unless:
-            - which puli
-
 api-dummy-repository:
     builder.git_latest:
         - name: git@github.com:elifesciences/api-dummy.git
@@ -66,4 +57,3 @@ api-dummy-composer-install:
         - require:
             - api-dummy-repository
             - cmd: api-dummy-php-composer-1.0
-            - cmd: api-dummy-php-puli-latest
