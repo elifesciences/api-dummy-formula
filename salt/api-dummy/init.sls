@@ -1,14 +1,3 @@
-api-dummy-php-composer-1.0:
-   cmd.run:
-        - name: |
-            cp composer composer1.0
-            composer1.0 self-update 1.0.3
-        - cwd: /usr/local/bin/
-        - require:
-            - cmd: install-composer
-        - unless:
-            - which composer1.0
-
 api-dummy-repository:
     builder.git_latest:
         - name: git@github.com:elifesciences/api-dummy.git
@@ -46,14 +35,15 @@ api-dummy-cache-directory:
 api-dummy-composer-install:
     cmd.run:
         {% if pillar.elife.env in ['prod', 'demo'] %}
-        - name: composer1.0 --no-interaction install --classmap-authoritative --no-dev
-        {% elif pillar.elife.env in ['ci'] %}
-        - name: composer1.0 --no-interaction install --classmap-authoritative
+        - name: composer --no-interaction install --no-suggest --classmap-authoritative --no-dev
+        {% elif pillar.elife.env != 'dev' %}
+        - name: composer --no-interaction install --no-suggest --classmap-authoritative
         {% else %}
-        - name: composer1.0 --no-interaction install
+        - name: composer --no-interaction install --no-suggest
         {% endif %}
         - cwd: /srv/api-dummy/
         - user: {{ pillar.elife.deploy_user.username }}
+        - env:
+          - COMPOSER_DISCARD_CHANGES: 'true'
         - require:
             - api-dummy-repository
-            - cmd: api-dummy-php-composer-1.0
