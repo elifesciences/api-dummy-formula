@@ -20,18 +20,6 @@ api-dummy-repository:
         - require:
             - builder: api-dummy-repository
 
-api-dummy-cache-directory:
-    file.directory:
-        - name: /srv/api-dummy/cache
-        - user: {{ pillar.elife.webserver.username }}
-        - group: {{ pillar.elife.webserver.username }}
-        - dir_mode: 775
-        - recurse:
-            - user
-            - group
-        - require:
-            - api-dummy-repository
-
 api-dummy-composer-install:
     cmd.run:
         {% if pillar.elife.env in ['prod', 'demo'] %}
