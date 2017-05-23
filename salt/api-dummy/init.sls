@@ -20,6 +20,15 @@ api-dummy-repository:
         - require:
             - builder: api-dummy-repository
 
+    {% if not pillar.api_dummy.standalone %}
+    cmd.run:
+        - name: ./pin.sh $(cat {{ pillar.api_dummy.pinned_revision }})
+        - cwd: /srv/api-dummy
+        - user: {{ pillar.elife.deploy_user.username }}
+        - require:
+            - file: api-dummy-repository
+    {% endif %}
+
 api-dummy-composer-install:
     cmd.run:
         {% if pillar.elife.env in ['prod', 'demo'] %}
