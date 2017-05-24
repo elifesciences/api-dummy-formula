@@ -1,3 +1,10 @@
+api-dummy-repository-reset: 
+    # to avoid
+    # stderr: fatal: could not set upstream of HEAD to origin/master when it does not point to any branch.
+    cmd.run:
+        - name: test -d /srv/api-dummy && cd /srv/api-dummy && git checkout master
+        - user: {{ pillar.elife.deploy_user.username }}
+
 api-dummy-repository:
     builder.git_latest:
         - name: git@github.com:elifesciences/api-dummy.git
@@ -9,6 +16,8 @@ api-dummy-repository:
         - force_checkout: True
         - force_reset: True
         - fetch_pull_requests: True
+        - require:
+            - api-dummy-repository-reset
 
     file.directory:
         - name: /srv/api-dummy
