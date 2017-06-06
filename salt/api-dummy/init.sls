@@ -2,8 +2,7 @@ api-dummy-repository-reset:
     # to avoid
     # stderr: fatal: could not set upstream of HEAD to origin/master when it does not point to any branch.
     cmd.run:
-        - name: git checkout master
-        - cwd: /srv/api-dummy
+        - name: cd /srv/api-dummy && git checkout master
         - user: {{ pillar.elife.deploy_user.username }}
         - onlyif:
             - test -d /srv/api-dummy
