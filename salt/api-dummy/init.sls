@@ -3,7 +3,7 @@ api-dummy-repository-reset:
     # stderr: fatal: could not set upstream of HEAD to origin/master when it does not point to any branch.
     cmd.run:
         - name: cd /srv/api-dummy && git checkout master
-        - user: {{ pillar.elife.deploy_user.username }}
+        - runas: {{ pillar.elife.deploy_user.username }}
         - onlyif:
             - test -d /srv/api-dummy
 
@@ -35,7 +35,7 @@ api-dummy-repository:
     cmd.run:
         - name: ./pin.sh $(cat {{ pillar.api_dummy.pinned_revision_file}})
         - cwd: /srv/api-dummy
-        - user: {{ pillar.elife.deploy_user.username }}
+        - runas: {{ pillar.elife.deploy_user.username }}
         - require:
             - file: api-dummy-repository
     {% endif %}
@@ -50,7 +50,7 @@ api-dummy-composer-install:
         - name: composer --no-interaction install --no-suggest
         {% endif %}
         - cwd: /srv/api-dummy/
-        - user: {{ pillar.elife.deploy_user.username }}
+        - runas: {{ pillar.elife.deploy_user.username }}
         - env:
           - COMPOSER_DISCARD_CHANGES: 'true'
         - require:
