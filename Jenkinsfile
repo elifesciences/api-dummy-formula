@@ -1,1 +1,1 @@
-elifeFormula('api-dummy', '', null, ['snsalt'])
+elifeFormula('api-dummy')
