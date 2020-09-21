@@ -33,7 +33,7 @@ api-dummy-repository:
 
     {% if not pillar.api_dummy.standalone %}
     cmd.run:
-        - name: ./pin.sh $(cat {{ pillar.api_dummy.pinned_revision_file}})
+        - name: ./pin.sh $(cat {{ pillar.api_dummy.pinned_revision_file }})
         - cwd: /srv/api-dummy
         - runas: {{ pillar.elife.deploy_user.username }}
         - require:
