@@ -2,7 +2,8 @@ api-dummy-repository-reset:
     # to avoid
     # stderr: fatal: could not set upstream of HEAD to origin/master when it does not point to any branch.
     cmd.run:
-        - name: cd /srv/api-dummy && git checkout master
+        # 'git clean -d -f' will force delete untracked directories
+        - name: cd /srv/api-dummy && git clean -d -f && git checkout master
         - runas: {{ pillar.elife.deploy_user.username }}
         - onlyif:
             - test -d /srv/api-dummy
