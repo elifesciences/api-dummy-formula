@@ -1,1 +1,1 @@
-elifeFormula('api-dummy')
+elifeFormula('api-dummy', '', null, ['s2004'])
