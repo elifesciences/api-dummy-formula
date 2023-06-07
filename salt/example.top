@@ -7,4 +7,3 @@ base:
         - elife.nginx-php7
         - api-dummy
         - api-dummy.nginx
-        - elife.proofreader-php
