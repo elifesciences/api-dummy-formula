@@ -19,7 +19,21 @@
     }
 }
 
-http://localhost:8080 http://127.0.0.1:8080 {
+{% if pillar.api_dummy.standalone %}
+# lsh@2024-02-05: port 8080 in standalone mode is deprecated, however smoke tests still depend on it.
+:80 :8080 {
     import api-dummy-config
 }
 
+{% if salt['elife.cfg']('cfn.outputs.DomainName') %}
+:443 {
+    import ../snippets/certs
+    import api-dummy-config
+}
+{% endif %}
+
+{% else %}
+:8080 {
+    import api-dummy-config
+}
+{% endif %}
