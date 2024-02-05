@@ -4,7 +4,7 @@ base:
         - elife.php7
         - elife.composer
         #- elife.nginx
-        #- elife.nginx-php7
+        - elife.nginx-php7 # not nginx-specific
         - elife.disable-nginx
         - elife.caddy
         - api-dummy

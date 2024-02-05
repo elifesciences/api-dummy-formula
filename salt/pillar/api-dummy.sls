@@ -1,3 +1,7 @@
+elife:
+    webserver:
+        app: caddy
+
 api_dummy:
     # api-dummy is 'standalone' when it's running as it's own project and not a dependency of another.
     # if another project needs to include api-dummy, set `api_dummy.standalone` to `false`.
