@@ -3,6 +3,10 @@ api-dummy-vhost:
         - name: /etc/caddy/sites.d/api-dummy
         - source: salt://api-dummy/config/etc-caddy-sites.d-api-dummy
         - template: jinja
+        - require:
+            - caddy-config
+        - require_in:
+            - cmd: caddy-validate-config
         - watch_in:
             - service: caddy-server-service
             - service: php-fpm
