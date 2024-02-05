@@ -1,10 +1,15 @@
 api-dummy-vhost:
     file.managed:
-        - name: /etc/nginx/sites-enabled/api-dummy.conf
-        - source: salt://api-dummy/config/etc-nginx-sites-enabled-api-dummy.conf
+        - name: /etc/caddy/sites.d/api-dummy
+        - source: salt://api-dummy/config/etc-caddy-sites.d-api-dummy
         - template: jinja
+        - makedirs: true
+        - require:
+            - caddy-config
+        - require_in:
+            - cmd: caddy-validate-config
         - watch_in:
-            - service: nginx-server-service
+            - service: caddy-server-service
             - service: php-fpm
 
 api-dummy-smoke-tests:
