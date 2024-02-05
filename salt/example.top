@@ -3,7 +3,10 @@ base:
         - elife
         - elife.php7
         - elife.composer
-        - elife.nginx
-        - elife.nginx-php7
+        #- elife.nginx
+        #- elife.nginx-php7
+        - elife.disable-nginx
+        - elife.caddy
         - api-dummy
-        - api-dummy.nginx
+        #- api-dummy.nginx
+        - api-dummy.caddy
